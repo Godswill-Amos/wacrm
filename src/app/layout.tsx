@@ -102,7 +102,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }}
         />
       </head>
-      <body className="min-h-full bg-background text-foreground font-sans">
+      <body
+        className="min-h-full bg-background text-foreground font-sans"
+        // Browser extensions (e.g. Grammarly) inject attributes like
+        // data-gr-ext-installed onto <body> before React hydrates,
+        // causing a benign attribute mismatch. Suppress it here.
+        suppressHydrationWarning
+      >
         <ThemeProvider>
           {children}
           <ThemedToaster />
